@@ -55,8 +55,9 @@ class PhotoList(APIView):
             fout.close()
 
             result = get_pred(full_filename)
+            veg_index = np.argmax(result)
 
-            return Response({'key': result}, status=status.HTTP_201_CREATED)
+            return Response({'key': result, veg_index=veg_index}, status=status.HTTP_201_CREATED)
         except Exception as inst:
             raise inst
             return Response({'key': 'NOT SAVED'}, status=status.HTTP_201_CREATED)
