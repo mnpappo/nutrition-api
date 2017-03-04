@@ -63,9 +63,9 @@ class PhotoList(APIView):
                 fout.write(chunk)
             fout.close()
 
-            allpreds, veg_index = get_pred(full_filename)
+            allpreds, veg_index, veg_name = get_pred(full_filename)
 
-            return Response({'key': allpreds, 'veg_index' : veg_index}, status=status.HTTP_201_CREATED)
+            return Response({'key': allpreds, 'veg_index' : veg_index, 'veg_name' : veg_name}, status=status.HTTP_201_CREATED)
         except Exception as inst:
             raise inst
             return Response({'key': 'NOT SAVED'}, status=status.HTTP_201_CREATED)

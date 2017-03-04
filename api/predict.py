@@ -27,6 +27,14 @@ batch_size = 4
 
 
 def predict_from_model(images_to_predict):
+    veg_name = {
+        '0' : 'cabbage',
+        '1' : 'cauliflower',
+        '2' : 'guava',
+        '3' : 'potato',
+        '4' : 'pumpkin'
+    }
+
     BASE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     model_json_path = 'model.json'
     model_weight_path = 'weight.h5'
@@ -54,4 +62,8 @@ def predict_from_model(images_to_predict):
     veg_index = np.argmax(allpreds)
     print(veg_index)
 
-    return allpreds, veg_index
+    veg_name = veg_name[str(veg_index)]
+
+    print(veg_name)
+
+    return allpreds, veg_index, veg_name
