@@ -44,11 +44,14 @@ def predict_from_model(images_to_predict):
     images_to_predict = images_to_predict.reshape(1, nb_channels, rows, cols)
 
     print("Predicting......")
-    preds = model.predict(images_to_predict, batch_size=1)
-    preds = preds.flatten()
+    allpreds = model.predict(images_to_predict, batch_size=1)
+    allpreds = allpreds.flatten()
 
-    print(preds)
+    print(allpreds)
 
-    x = map(prettyfloat, preds)
+    map(prettyfloat, allpreds)
 
-    return x
+    veg_index = np.argmax(allpreds)
+    print(veg_index)
+
+    return allpreds, veg_index

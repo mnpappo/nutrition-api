@@ -10,7 +10,7 @@ from .serializers import PhotoSerializer
 from rest_framework import status
 from django.http import Http404
 from django.core.files.base import ContentFile
-
+from django.http import HttpResponse
 
 import scipy.misc
 from PIL import Image
@@ -18,6 +18,15 @@ from scipy.ndimage.interpolation import zoom
 import numpy as np
 
 from .predict import predict_from_model
+
+def index(request):
+    return HttpResponse("Hello, world.")
+
+
+def api_test(request):
+    return HttpResponse("One more step :)")
+
+
 
 def get_pred(full_filename):
     img = np.array(Image.open(full_filename).convert('RGB'))
@@ -30,7 +39,7 @@ def get_pred(full_filename):
 class PhotoList(APIView):
 
     def get(self, request, format=None):
-        pass
+        return Response({'key': 'value'}, status=status.HTTP_201_CREATED)
 
     def post(self,request,format=None):
         folder = 'predic_images/' #request.path.replace("/", "_")
@@ -54,10 +63,9 @@ class PhotoList(APIView):
                 fout.write(chunk)
             fout.close()
 
-            result = get_pred(full_filename)
-            veg_index = np.argmax(result)
+            allpreds, veg_index = get_pred(full_filename)
 
-            return Response({'key': result, veg_index:veg_index}, status=status.HTTP_201_CREATED)
+            return Response({'key': allpreds, 'veg_index' : veg_index}, status=status.HTTP_201_CREATED)
         except Exception as inst:
             raise inst
             return Response({'key': 'NOT SAVED'}, status=status.HTTP_201_CREATED)
