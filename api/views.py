@@ -65,6 +65,8 @@ class PhotoList(APIView):
 
             allpreds, veg_index, veg_name = get_pred(full_filename)
 
+            os.remove(full_filename)
+
             return Response({'key': allpreds, 'veg_index' : veg_index, 'veg_name' : veg_name}, status=status.HTTP_201_CREATED)
         except Exception as inst:
             raise inst
