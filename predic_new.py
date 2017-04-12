@@ -1,7 +1,3 @@
-import numpy as np
-np.random.seed(1337)
-import tensorflow as tf
-tf.set_random_seed(1337)
 from keras.layers import Input, Dense, Convolution2D, MaxPooling2D, UpSampling2D, Flatten, Activation, Dropout
 from keras.models import Model, model_from_json
 import numpy as np
@@ -23,7 +19,7 @@ class prettyfloat(float):
         return "%0.100f" % self
 
 nb_channels = 3
-nb_class = 8
+nb_class = 5
 kernel = 3
 rows, cols = 128, 128
 nb_epoch = 2
@@ -44,13 +40,13 @@ import tensorflow as tf
 def predict_from_model(images_to_predict):
     veg_name = {
         '0' : 'cabbage',
-        '1' : 'cauliflower',
-        '2' : 'potato',
-        '3' : 'eggplant',
-        '4' : 'carrot',
-        '5' : 'radish',
-        '6' : 'tomatto',
-        '7' : 'cucumber',
+        '1' : 'carrot',
+        '2' : 'cauliflower',
+        '3' : 'cucumber',
+        '4' : 'eggplant',
+        '5' : 'potato',
+        '6' : 'radish',
+        '7' : 'tomatto',
     }
     with tf.Session():
         BASE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -67,10 +63,10 @@ def predict_from_model(images_to_predict):
 
         # model.evaluate(x_test, y_test, verbose=1)
 
-        images_to_predict = images_to_predict.reshape(1, rows, cols, nb_channels)
+        images_to_predict = images_to_predict.reshape(1, nb_channels, rows, cols)
 
         print("Predicting......")
-        allpreds = model.predict(images_to_predict)
+        allpreds = model.predict(images_to_predict, batch_size=1)
         print(allpreds)
 
         # allpreds = allpreds.flatten()

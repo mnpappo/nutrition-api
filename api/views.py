@@ -1,3 +1,5 @@
+import numpy as np
+np.random.seed(1337)
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -19,6 +21,7 @@ import numpy as np
 
 from .predict import predict_from_model
 
+
 def index(request):
     return HttpResponse("Hello, world.")
 
@@ -29,10 +32,15 @@ def api_test(request):
 
 
 def get_pred(full_filename):
+    # Image.open(full_filename).convert('RGB').show()
     img = np.array(Image.open(full_filename).convert('RGB'))
+    print(img.shape)
+
     # img = img.reshape((3,512,512))
-    img = scipy.misc.imresize(img, (64,64,3))
-    img = np.rollaxis(img, 2, 0)
+    img = scipy.misc.imresize(img, (128,128,3))
+    print(img.shape)
+    # img = np.rollaxis(img, 2, 0)
+
 
     return predict_from_model(img)
 
