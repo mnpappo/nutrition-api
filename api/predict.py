@@ -29,14 +29,14 @@ rows, cols = 128, 128
 nb_epoch = 2
 batch_size = 4
 
-# labels[0:999] = 0 #cabbage
-# labels[999:1999] = 1 #carrot
-# labels[1999:2999] = 2 #cauliflower
-# labels[2999:3999] = 3 #cucumber
-# labels[3999:4999] = 4 #eggplant
-# labels[4999:5999] = 5 #potato
-# labels[5999:6999] = 6 #radish
-# labels[6999:7999] = 7 #tomatto
+# '0' : 'cabbage',
+# '1' : 'cauliflower',
+# '2' : 'potato',
+# '3' : 'eggplant',
+# '4' : 'carrot',
+# '5' : 'radish',
+# '6' : 'tomatto',
+# '7' : 'cucumber',
 
 import tensorflow as tf
 
